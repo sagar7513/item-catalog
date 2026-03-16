@@ -1,0 +1,411 @@
+:root {
+    --primary-color: #6c5ce7;
+    --secondary-color: #a29bfe;
+    --accent-color: #fd79a8;
+    --dark-color: #2d3436;
+    --light-color: #dfe6e9;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.hero-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    margin: 2rem 0;
+    padding: 4rem 2rem;
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.restaurant-card, .menu-item-card {
+    border-left: 4px solid var(--primary-color);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 25px;
+    padding: 10px 25px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+}
+
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 12px 15px;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
+}
+
+.badge {
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.navbar {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.features-section .col-md-4 {
+    padding: 2rem;
+}
+
+.features-section h3 {
+    margin: 1rem 0;
+    color: var(--dark-color);
+}
+
+.features-section p {
+    color: #666;
+}
+
+/* Admin specific styles */
+.admin-header {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.05), rgba(253, 121, 168, 0.05));
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.stat-card {
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.activity-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.activity-timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e9ecef;
+}
+
+.activity-item {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.activity-icon {
+    position: absolute;
+    left: -30px;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.restaurant-admin-card, .menu-admin-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-left: 4px solid #6c5ce7;
+}
+
+.restaurant-admin-card:hover, .menu-admin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Login/Signup specific styles */
+.login-container, .signup-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 450px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+}
+
+.input-icon {
+    position: relative;
+}
+
+.input-icon i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c5ce7;
+}
+
+.password-toggle {
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.password-toggle:hover {
+    color: #fd79a8;
+}
+
+.password-requirements {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.requirement {
+    margin-bottom: 3px;
+    transition: color 0.3s;
+}
+
+.requirement.met {
+    color: #28a745;
+}
+
+.requirement.unmet {
+    color: #dc3545;
+}
+
+.requirement.met::before {
+    content: "✓ ";
+    font-weight: bold;
+}
+
+.requirement.unmet::before {
+    content: "✗ ";
+    font-weight: bold;
+}
+
+/* Menu specific styles */
+.restaurant-header {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(253, 121, 168, 0.1));
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin-top: 1rem;
+}
+
+.category-filters .btn.active {
+    background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+    color: white;
+    border-color: #6c5ce7;
+}
+
+.nutrition-info {
+    font-size: 0.85rem;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #6c5ce7, #fd79a8) !important;
+}
+
+.empty-state {
+    opacity: 0.7;
+}
+
+.rating i {
+    font-size: 0.8rem;
+}
+
+.menu-item {
+    animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Category-specific styling */
+.menu-item-card[data-category*="Dessert"] {
+    border-left-color: #fd79a8;
+}
+
+.menu-item-card[data-category*="Drink"] {
+    border-left-color: #00cec9;
+}
+
+.menu-item-card[data-category*="Appetizer"] {
+    border-left-color: #fdcb6e;
+}
+
+/* Restaurant page styles */
+.restaurant-image-placeholder {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    height: 120px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.restaurant-badges {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.header-graphics i {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.header-graphics i:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.header-graphics i:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.header-graphics i:nth-child(4) {
+    animation-delay: 0.9s;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.filter-buttons .btn.active {
+    background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+    color: white;
+    border-color: #6c5ce7;
+}
+
+/* Dashboard specific styles */
+.stat-icon {
+    opacity: 0.8;
+}
+
+.activity-content {
+    padding-left: 1rem;
+}
+
+.restaurant-preview-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.restaurant-preview-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.preview-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.preview-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.preview-desc {
+    line-height: 1.4;
+}
+
+.preview-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.system-status .status-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.system-status .status-item:last-child {
+    border-bottom: none;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    border-bottom: 1px solid #e9ecef;
+    padding: 1.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.btn-lg {
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+}

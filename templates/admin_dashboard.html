@@ -1,0 +1,411 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - FlavorJourney{% endblock %}
+
+{% block content %}
+<div class="admin-header mb-4">
+    <h2 class="fw-bold text-gradient mb-2">
+        <i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard
+    </h2>
+    <p class="text-muted">Welcome back, {{ current_user.username }}! Here's what's happening with your restaurants.</p>
+</div>
+
+<!-- Quick Stats -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3 class="fw-bold">{{ restaurants|length }}</h3>
+                        <p class="mb-0">Total Restaurants</p>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-utensils fa-2x"></i>
+                    </div>
+                </div>
+                <div class="stat-progress mt-2">
+                    <small>+2 this month</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3 class="fw-bold">{{ total_menu_items }}</h3>
+                        <p class="mb-0">Menu Items</p>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-pizza-slice fa-2x"></i>
+                    </div>
+                </div>
+                <div class="stat-progress mt-2">
+                    <small>+15 this week</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card bg-warning text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3 class="fw-bold">1,248</h3>
+                        <p class="mb-0">Total Visitors</p>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                </div>
+                <div class="stat-progress mt-2">
+                    <small>+124 today</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3 class="fw-bold">4.8</h3>
+                        <p class="mb-0">Avg Rating</p>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-star fa-2x"></i>
+                    </div>
+                </div>
+                <div class="stat-progress mt-2">
+                    <small>+0.2 this month</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Recent Activity -->
+    <div class="col-lg-8 mb-4">
+        <div class="card">
+            <div class="card-header bg-transparent">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-line me-2 text-primary"></i>Recent Activity
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="activity-timeline">
+                    <div class="activity-item">
+                        <div class="activity-icon bg-success">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h6>New restaurant added</h6>
+                            <p class="text-muted">"Sushi Paradise" was added to the platform</p>
+                            <small class="text-muted">2 hours ago</small>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon bg-warning">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h6>Menu updated</h6>
+                            <p class="text-muted">Italian Bistro menu was modified</p>
+                            <small class="text-muted">5 hours ago</small>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon bg-info">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h6>New user registration</h6>
+                            <p class="text-muted">John Doe joined the platform</p>
+                            <small class="text-muted">Yesterday</small>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon bg-primary">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h6>Restaurant viewed</h6>
+                            <p class="text-muted">Sushi Haven page got 45 views</p>
+                            <small class="text-muted">2 days ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header bg-transparent">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-bolt me-2 text-warning"></i>Quick Actions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('admin_restaurants') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-utensils me-2"></i>Manage Restaurants
+                    </a>
+                    <a href="{{ url_for('restaurants') }}" class="btn btn-outline-primary btn-lg" target="_blank">
+                        <i class="fas fa-eye me-2"></i>View Public Site
+                    </a>
+                    <button class="btn btn-outline-success btn-lg">
+                        <i class="fas fa-chart-bar me-2"></i>View Analytics
+                    </button>
+                    <button class="btn btn-outline-info btn-lg">
+                        <i class="fas fa-cog me-2"></i>Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- System Status -->
+        <div class="card mt-4">
+            <div class="card-header bg-transparent">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-server me-2 text-info"></i>System Status
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="system-status">
+                    <div class="status-item d-flex justify-content-between align-items-center mb-3">
+                        <span>Website Uptime</span>
+                        <span class="badge bg-success">100%</span>
+                    </div>
+                    <div class="status-item d-flex justify-content-between align-items-center mb-3">
+                        <span>Database</span>
+                        <span class="badge bg-success">Online</span>
+                    </div>
+                    <div class="status-item d-flex justify-content-between align-items-center mb-3">
+                        <span>Storage Usage</span>
+                        <span class="badge bg-warning">75%</span>
+                    </div>
+                    <div class="status-item d-flex justify-content-between align-items-center">
+                        <span>Last Backup</span>
+                        <span class="badge bg-info">2 hours ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Restaurants -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-clock me-2 text-secondary"></i>Recently Added Restaurants
+                </h5>
+                <a href="{{ url_for('admin_restaurants') }}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for restaurant in restaurants[:3] %}
+                    <div class="col-md-4 mb-3">
+                        <div class="restaurant-preview-card">
+                            <div class="preview-header">
+                                <i class="fas fa-utensils fa-2x text-primary"></i>
+                                <span class="badge bg-success">Active</span>
+                            </div>
+                            <h6 class="preview-title">{{ restaurant.name }}</h6>
+                            <p class="preview-desc text-muted small">{{ restaurant.description[:100] }}...</p>
+                            <div class="preview-stats">
+                                <small class="text-muted">
+                                    <i class="fas fa-list-alt me-1"></i>{{ restaurant.menu_items|length }} items
+                                </small>
+                                <small class="text-muted ms-2">
+                                    <i class="fas fa-calendar me-1"></i>{{ restaurant.created_at.strftime('%b %d') }}
+                                </small>
+                            </div>
+                            <div class="preview-actions mt-2">
+                                <a href="{{ url_for('admin_menu', restaurant_id=restaurant.id) }}" class="btn btn-sm btn-outline-primary w-100">
+                                    Manage Menu
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.admin-header {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.05), rgba(253, 121, 168, 0.05));
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, #6c5ce7, #fd79a8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-card {
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    opacity: 0.8;
+}
+
+.activity-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.activity-timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e9ecef;
+}
+
+.activity-item {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.activity-icon {
+    position: absolute;
+    left: -30px;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.activity-content {
+    padding-left: 1rem;
+}
+
+.restaurant-preview-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.restaurant-preview-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.preview-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.preview-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.preview-desc {
+    line-height: 1.4;
+}
+
+.preview-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.system-status .status-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.system-status .status-item:last-child {
+    border-bottom: none;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    border-bottom: 1px solid #e9ecef;
+    padding: 1.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.btn-lg {
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate stats cards on scroll
+    const statsCards = document.querySelectorAll('.stat-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    });
+    
+    statsCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'all 0.6s ease';
+        observer.observe(card);
+    });
+    
+    // Add loading animation for activity items
+    const activityItems = document.querySelectorAll('.activity-item');
+    activityItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.2}s`;
+        item.classList.add('fade-in');
+    });
+});
+</script>
+{% endblock %}

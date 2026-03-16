@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up - FlavorJourney{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="signup-container">
+        <div class="signup-header text-center mb-4">
+            <h2 class="text-gradient">Join FlavorJourney</h2>
+            <p class="text-muted">Create your account to get started</p>
+        </div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form id="signupForm" action="{{ url_for('signup') }}" method="post">
+            <div class="form-group mb-3">
+                <label for="username" class="form-label">Username</label>
+                <div class="input-icon">
+                    <input type="text" class="form-control" id="username" name="username" required>
+                    <i class="fas fa-user"></i>
+                </div>
+                <div id="usernameError" class="text-danger mt-1" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i> Username must be at least 3 characters
+                </div>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <div class="input-icon">
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div id="emailError" class="text-danger mt-1" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i> Please enter a valid email address
+                </div>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-icon">
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <i class="fas fa-lock password-toggle" id="togglePassword"></i>
+                </div>
+                <div id="passwordError" class="text-danger mt-1" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i> Password must meet all requirements
+                </div>
+                
+                <div class="password-requirements mt-2">
+                    <div class="requirement" id="lengthReq">At least 8 characters</div>
+                    <div class="requirement" id="upperReq">One uppercase letter</div>
+                    <div class="requirement" id="lowerReq">One lowercase letter</div>
+                    <div class="requirement" id="numberReq">One number</div>
+                    <div class="requirement" id="specialReq">One special character</div>
+                </div>
+            </div>
+            
+            <div class="form-group mb-4">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <div class="input-icon">
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div id="confirmError" class="text-danger mt-1" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i> Passwords do not match
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Create Account</button>
+            
+            <div class="text-center">
+                <p class="mb-0">Already have an account? <a href="{{ url_for('login') }}" class="text-gradient text-decoration-none">Login here</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.signup-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 450px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+}
+
+.signup-header h2 {
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, #6c5ce7, #fd79a8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.input-icon {
+    position: relative;
+}
+
+.input-icon i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c5ce7;
+}
+
+.password-toggle {
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.password-toggle:hover {
+    color: #fd79a8;
+}
+
+.form-control {
+    border-radius: 10px;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #6c5ce7;
+    box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+}
+
+.password-requirements {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.requirement {
+    margin-bottom: 3px;
+    transition: color 0.3s;
+}
+
+.requirement.met {
+    color: #28a745;
+}
+
+.requirement.unmet {
+    color: #dc3545;
+}
+
+.requirement.met::before {
+    content: "✓ ";
+    font-weight: bold;
+}
+
+.requirement.unmet::before {
+    content: "✗ ";
+    font-weight: bold;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirmPassword');
+    const emailInput = document.getElementById('email');
+    const usernameInput = document.getElementById('username');
+    const signupForm = document.getElementById('signupForm');
+    const togglePassword = document.getElementById('togglePassword');
+    
+    // Password requirements elements
+    const lengthReq = document.getElementById('lengthReq');
+    const upperReq = document.getElementById('upperReq');
+    const lowerReq = document.getElementById('lowerReq');
+    const numberReq = document.getElementById('numberReq');
+    const specialReq = document.getElementById('specialReq');
+    
+    // Password toggle functionality
+    if (togglePassword) {
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    }
+    
+    // Username validation
+    usernameInput.addEventListener('blur', function() {
+        const isValid = this.value.length >= 3;
+        document.getElementById('usernameError').style.display = isValid ? 'none' : 'block';
+        this.classList.toggle('is-invalid', !isValid);
+    });
+    
+    // Email validation
+    emailInput.addEventListener('blur', function() {
+        const email = this.value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValid = email === '' || emailRegex.test(email);
+        
+        document.getElementById('emailError').style.display = isValid ? 'none' : 'block';
+        this.classList.toggle('is-invalid', !isValid);
+    });
+    
+    // Real-time password validation
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        
+        // Check requirements
+        const hasLength = password.length >= 8;
+        const hasUpper = /[A-Z]/.test(password);
+        const hasLower = /[a-z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+        
+        // Update requirement indicators
+        updateRequirement(lengthReq, hasLength);
+        updateRequirement(upperReq, hasUpper);
+        updateRequirement(lowerReq, hasLower);
+        updateRequirement(numberReq, hasNumber);
+        updateRequirement(specialReq, hasSpecial);
+        
+        // Show/hide error message
+        const isValid = hasLength && hasUpper && hasLower && hasNumber && hasSpecial;
+        document.getElementById('passwordError').style.display = isValid ? 'none' : 'block';
+        this.classList.toggle('is-invalid', !isValid);
+        
+        // Check password confirmation
+        validatePasswordMatch();
+    });
+    
+    // Confirm password validation
+    confirmInput.addEventListener('input', validatePasswordMatch);
+    
+    function validatePasswordMatch() {
+        const password = passwordInput.value;
+        const confirm = confirmInput.value;
+        const isValid = confirm === '' || password === confirm;
+        
+        document.getElementById('confirmError').style.display = isValid ? 'none' : 'block';
+        confirmInput.classList.toggle('is-invalid', !isValid);
+    }
+    
+    function updateRequirement(element, condition) {
+        if (condition) {
+            element.classList.add('met');
+            element.classList.remove('unmet');
+        } else {
+            element.classList.add('unmet');
+            element.classList.remove('met');
+        }
+    }
+    
+    // Form submission validation
+    signupForm.addEventListener('submit', function(e) {
+        const username = usernameInput.value;
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        const confirm = confirmInput.value;
+        
+        // Username validation
+        const isUsernameValid = username.length >= 3;
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isEmailValid = emailRegex.test(email);
+        
+        // Password validation
+        const isPasswordValid = password.length >= 8 && 
+            /[A-Z]/.test(password) && 
+            /[a-z]/.test(password) && 
+            /[0-9]/.test(password) && 
+            /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+        
+        // Confirm password validation
+        const isConfirmValid = password === confirm;
+        
+        if (!isUsernameValid || !isEmailValid || !isPasswordValid || !isConfirmValid) {
+            e.preventDefault();
+            
+            if (!isUsernameValid) {
+                document.getElementById('usernameError').style.display = 'block';
+                usernameInput.classList.add('is-invalid');
+                usernameInput.focus();
+            } else if (!isEmailValid) {
+                document.getElementById('emailError').style.display = 'block';
+                emailInput.classList.add('is-invalid');
+                emailInput.focus();
+            } else if (!isPasswordValid) {
+                document.getElementById('passwordError').style.display = 'block';
+                passwordInput.classList.add('is-invalid');
+                passwordInput.focus();
+            } else if (!isConfirmValid) {
+                document.getElementById('confirmError').style.display = 'block';
+                confirmInput.classList.add('is-invalid');
+                confirmInput.focus();
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
