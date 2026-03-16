@@ -296,4 +296,4 @@ def delete_menu_item(item_id):
 
 if __name__ == '__main__':
     create_tables()
-    app.run(host='0.0.0.0',debug=True,port=7000)
+    app.run(host='0.0.0.0',debug=True,port=80)
