@@ -16,9 +16,11 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             # Navigate to app directory
+            echo "Changing directory"
             cd ~/item-catalog
             
             # If repo doesn't exist, clone it; else pull
+            echo "Checking git and pulling changes"
             if [ ! -d ".git" ]; then
               git clone https://github.com/${{ github.repository }}.git .
             else
@@ -27,7 +29,9 @@ jobs:
             
             # Kill existing Flask process on port 8080 (if any)
             # Amazon Linux uses 'ss' or 'lsof' (you might need to install lsof)
+            echo "Killing existing process"
             sudo lsof -t -i:8080 | xargs -r kill -9
             
             # Start the app in the background
+            echo "Starting app..."
             nohup python3 app.py > log.txt 2>&1 &
